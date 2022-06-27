@@ -11,4 +11,4 @@ COPY . .
 
 COPY --from=daemon /go/bin/CompileDaemon /go/bin/ 
 
-ENTRYPOINT [ "sh", "./docker/entrypoint.sh" ]
+ENTRYPOINT [ "sh", "./infra/entrypoint.sh" ]

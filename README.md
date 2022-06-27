@@ -7,3 +7,13 @@
 > :warning: Work in progress!
 
 TON Blockchain smart contracts event indexing service
+
+up the service:
+```
+docker-compose -f <CONFIG> up --build -d <SERVICE>
+```
+
+down the service: 
+```
+docker-compose -f <CONFIG> stop <SERVICE>
+```
