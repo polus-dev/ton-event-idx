@@ -1,5 +1,11 @@
 version: '3.8'
 
+####################################
+##                                ##
+## WARN: DON'T USE IN PRODUCTION! ##
+##                                ##
+####################################
+
 services:
   app:
     container_name: event-dev

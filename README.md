@@ -10,15 +10,15 @@ TON Blockchain smart contracts event indexing service
 
 up the service:
 ```
-docker-compose -f <CONFIG> up --build -d <SERVICE>
+docker-compose up --build -d <SERVICE>
 ```
 
 stop the service: 
 ```
-docker-compose -f <CONFIG> stop <SERVICE>
+docker-compose stop <SERVICE>
 ```
 
 down all:
 ```
-docker-compose -f <CONFIG> down
+docker-compose down
 ```
