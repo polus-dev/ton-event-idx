@@ -1,0 +1,17 @@
+# VS Code
+.vscode/*
+.history/
+*.vsix
+
+# Golang
+main
+vendor/
+go.work
+
+# ENV
+.env
+
+# Mac OS General
+.DS_Store
+.AppleDouble
+.LSOverride
