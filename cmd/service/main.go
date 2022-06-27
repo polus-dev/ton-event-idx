@@ -4,9 +4,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"time"
+	_ "ton-event-idx/pkg/log"
 	"ton-event-idx/src/config"
-	"ton-event-idx/src/logger"
 	"ton-event-idx/src/tonrpc"
+
+	"github.com/sirupsen/logrus"
 )
 
 func prettyPrint(i interface{}) string {
@@ -16,7 +18,7 @@ func prettyPrint(i interface{}) string {
 
 func main() {
 	config.Configure()
-	logger.Info("Starting the \"ton-event-idx\"")
+	logrus.Info("Starting the \"ton-event-idx\"")
 
 	rpc := tonrpc.TonRPC{JsonRpcURL: config.CFG.JsonRpcURL}
 
@@ -43,12 +45,12 @@ func main() {
 	})
 
 	if err != nil {
-		logger.Error(err.Error())
+		logrus.Error(err.Error())
 	}
 
 	fmt.Println(prettyPrint(resp))
 	for {
-		fmt.Println("ABOfA")
+		logrus.Debug("ABOfA")
 		time.Sleep(1 * time.Second)
 	}
 }

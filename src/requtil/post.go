@@ -6,7 +6,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"time"
-	"ton-event-idx/src/logger"
 )
 
 func SendPostReq(url string, postData []byte) ([]byte, error) {
@@ -25,12 +24,7 @@ func SendPostReq(url string, postData []byte) ([]byte, error) {
 		return nil, err
 	}
 
-	defer func() {
-		err := response.Body.Close()
-		if err != nil {
-			logger.Errorf("can't close response.Body: %s", err)
-		}
-	}()
+	defer func() { response.Body.Close() }()
 
 	body, err := ioutil.ReadAll(response.Body)
 	if err != nil {
