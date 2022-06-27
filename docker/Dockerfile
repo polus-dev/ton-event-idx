@@ -9,7 +9,6 @@ RUN go mod download && go mod verify
 
 COPY . .
 
-RUN apk update && apk add bash
 COPY --from=daemon /go/bin/CompileDaemon /go/bin/ 
 
-ENTRYPOINT [ "bash", "./docker/entrypoint.sh" ]
+ENTRYPOINT [ "sh", "./docker/entrypoint.sh" ]

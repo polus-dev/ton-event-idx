@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 BINARY="./main"
 GO_ENTRYPOINT="./cmd/service/main.go"

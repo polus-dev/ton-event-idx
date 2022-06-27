@@ -5,15 +5,11 @@ services:
     container_name: ton-event-idx-dev
     hostname: ton-event-idx-dev
     build:
-      context: .
       dockerfile: ./docker/Dockerfile
       target: dev
+      context: .
     env_file:
       - .env
-    volumes:
-      - .:/app/
-    ports:
-      - '80:80'
 
 networks:
   default:
