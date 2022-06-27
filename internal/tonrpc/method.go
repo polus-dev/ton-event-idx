@@ -2,7 +2,7 @@ package tonrpc
 
 import (
 	"encoding/json"
-	"ton-event-idx/src/requtil"
+	"ton-event-idx/internal/requtil"
 )
 
 type TonRPC struct{ JsonRpcURL string }

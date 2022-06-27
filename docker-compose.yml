@@ -8,6 +8,8 @@ services:
       dockerfile: ./docker/Dockerfile
       target: dev
       context: .
+    volumes:
+      - .:/app/
     env_file:
       - .env
 

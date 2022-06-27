@@ -25,9 +25,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"time"
+	"ton-event-idx/internal/config"
+	"ton-event-idx/internal/tonrpc"
 	_ "ton-event-idx/pkg/log"
-	"ton-event-idx/src/config"
-	"ton-event-idx/src/tonrpc"
 
 	"github.com/sirupsen/logrus"
 )
