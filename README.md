@@ -1,6 +1,7 @@
 ## ton-event-idx
 
 ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/biton-dev/ton-event-idx)
+[![GitHub license](https://img.shields.io/github/license/biton-dev/ton-event-idx)](https://github.com/biton-dev/ton-event-idx)
 
 > :warning: Work in progress!
 
