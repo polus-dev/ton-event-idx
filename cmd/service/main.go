@@ -1,5 +1,4 @@
-package main
-
+//
 // TON Blockchain smart contracts event indexing service
 // Copyright (C) 2022 https://github.com/cryshado
 
@@ -15,6 +14,9 @@ package main
 
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
+//
+
+package main
 
 import (
 	"encoding/json"
