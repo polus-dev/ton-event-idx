@@ -13,7 +13,12 @@ up the service:
 docker-compose -f <CONFIG> up --build -d <SERVICE>
 ```
 
-down the service: 
+stop the service: 
 ```
 docker-compose -f <CONFIG> stop <SERVICE>
+```
+
+down all:
+```
+docker-compose -f <CONFIG> down
 ```

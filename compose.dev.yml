@@ -2,7 +2,8 @@ version: '3.8'
 
 services:
   app:
-    hostname: ton-event-idx-dev
+    container_name: event-dev
+    hostname: event-dev
     volumes:
       - .:/app/
     build:
@@ -16,7 +17,7 @@ services:
 
   db:
     image: postgres:14
-    container_name: postgres-db-dev
+    container_name: postgres-dev
     env_file:
       - .env
     environment: 
