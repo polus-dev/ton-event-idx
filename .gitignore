@@ -15,3 +15,6 @@ go.work
 .DS_Store
 .AppleDouble
 .LSOverride
+
+# Other
+deprecated

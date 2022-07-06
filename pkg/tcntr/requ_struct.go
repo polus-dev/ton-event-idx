@@ -1,4 +1,4 @@
-package tonrpc
+package tcntr
 
 type GetBlockTransactions struct {
 	Workchain int `json:"workchain"`
@@ -25,6 +25,6 @@ type RpcReq[P RpcParams] struct {
 	Params  P      `json:"params"`
 }
 
-func newRpcReq[P RpcParams](method string, params P) RpcReq[P] {
-	return RpcReq[P]{Method: method, JsonRpc: "2.0", Params: params}
+func newRpcReq[P RpcParams](method string, params *P) *RpcReq[P] {
+	return &RpcReq[P]{Method: method, JsonRpc: "2.0", Params: *params}
 }

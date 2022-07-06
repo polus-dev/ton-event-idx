@@ -1,4 +1,4 @@
-package requtil
+package spreq
 
 import (
 	"bytes"
@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-func SendPostReq(url string, postData []byte) ([]byte, error) {
+func SendJsonPostReq(url string, timeout time.Duration, postData []byte) ([]byte, error) {
 	request, err := http.NewRequest("POST", url, bytes.NewBuffer(postData))
 	if err != nil {
 		return nil, err
@@ -17,7 +17,7 @@ func SendPostReq(url string, postData []byte) ([]byte, error) {
 	request.Header.Set("Content-Type", "application/json; charset=UTF-8")
 
 	tr := &http.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}
-	client := &http.Client{Timeout: 2 * time.Second, Transport: tr}
+	client := &http.Client{Timeout: timeout, Transport: tr}
 
 	response, err := client.Do(request)
 	if err != nil {

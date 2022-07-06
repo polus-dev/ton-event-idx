@@ -1,4 +1,4 @@
-package tonrpc
+package tcntr
 
 type TonType struct {
 	Type string `json:"@type"`

@@ -22,26 +22,19 @@
 package main
 
 import (
-	"encoding/json"
-	"fmt"
-	"time"
-	"ton-event-idx/internal/config"
-	"ton-event-idx/internal/tonrpc"
+	"ton-event-idx/internal/app"
+	_ "ton-event-idx/internal/app"
+	"ton-event-idx/internal/handle"
 	_ "ton-event-idx/pkg/log"
 
 	"github.com/sirupsen/logrus"
 )
 
-func prettyPrint(i interface{}) string {
-	s, _ := json.MarshalIndent(i, "", "  ")
-	return string(s)
-}
-
 func main() {
-	config.Configure()
 	logrus.Info("Starting the \"ton-event-idx\"")
+	handle.Start(app.CFG.StartBlockSeqno)
 
-	rpc := tonrpc.TonRPC{JsonRpcURL: config.CFG.JsonRpcURL}
+	// rpc := tonrpc.TonRPC{JsonRpcURL: config.CFG.JsonRpcURL}
 
 	// resp, err := rpc.GetBlockTransactions(tonrpc.GetBlockTransactions{
 	// 	Workchain: 0,
@@ -58,20 +51,20 @@ func main() {
 
 	// logger.Info(respDes.Result.Transactions)
 
-	resp, err := rpc.GetTransactions(tonrpc.GetTransactions{
-		Address: "0:a5b51fcf4cbbb036db5eefbb31f705d79ec118fa27cac0dcd893e1585029eaad",
-		Hash:    "SPAN00z1yQf5rY/ihBgd8pcaAtmntcE+7YKo4vIRSSw=",
-		LT:      29021823000003,
-		Limit:   1,
-	})
+	// resp, err := rpc.GetTransactions(tonrpc.GetTransactions{
+	// 	Address: "0:a5b51fcf4cbbb036db5eefbb31f705d79ec118fa27cac0dcd893e1585029eaad",
+	// 	Hash:    "SPAN00z1yQf5rY/ihBgd8pcaAtmntcE+7YKo4vIRSSw=",
+	// 	LT:      29021823000003,
+	// 	Limit:   1,
+	// })
 
-	if err != nil {
-		logrus.Error(err.Error())
-	}
+	// if err != nil {
+	// 	logrus.Error(err.Error())
+	// }
 
-	fmt.Println(prettyPrint(resp))
-	for {
-		logrus.Debug("test debug msg")
-		time.Sleep(1 * time.Second)
-	}
+	// fmt.Println(prettyPrint(resp))
+	// for {
+	// 	logrus.Debug("test debug msg")
+	// 	time.Sleep(1 * time.Second)
+	// }
 }
