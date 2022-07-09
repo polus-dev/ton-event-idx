@@ -2,6 +2,15 @@ module ton-event-idx
 
 go 1.18
 
-require github.com/sirupsen/logrus v1.8.1
+require (
+	github.com/sirupsen/logrus v1.8.1
+	github.com/xssnick/tonutils-go v0.9.0
+)
 
-require golang.org/x/sys v0.0.0-20220319134239-a9b59b0215f8 // indirect
+require (
+	github.com/oasisprotocol/curve25519-voi v0.0.0-20220328075252-7dd334e3daae // indirect
+	github.com/sigurn/crc16 v0.0.0-20211026045750-20ab5afb07e3 // indirect
+	golang.org/x/crypto v0.0.0-20220321153916-2c7772ba3064 // indirect
+	golang.org/x/exp v0.0.0-20220706164943-b4a6d9510983 // indirect
+	golang.org/x/sys v0.0.0-20220325203850-36772127a21f // indirect
+)

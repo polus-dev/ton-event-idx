@@ -23,8 +23,8 @@ package main
 
 import (
 	"ton-event-idx/internal/app"
-	_ "ton-event-idx/internal/app"
-	"ton-event-idx/internal/handle"
+	"ton-event-idx/internal/client"
+	"ton-event-idx/internal/scan"
 	_ "ton-event-idx/pkg/log"
 
 	"github.com/sirupsen/logrus"
@@ -32,39 +32,14 @@ import (
 
 func main() {
 	logrus.Info("Starting the \"ton-event-idx\"")
-	handle.Start(app.CFG.StartBlockSeqno)
+	app.Configure()
 
-	// rpc := tonrpc.TonRPC{JsonRpcURL: config.CFG.JsonRpcURL}
+	api, err := client.NewLiteApiClient()
+	if err != nil {
+		logrus.Fatalf("can't create new lite apo client: %s", err)
+	}
 
-	// resp, err := rpc.GetBlockTransactions(tonrpc.GetBlockTransactions{
-	// 	Workchain: 0,
-	// 	Shard:     8000000000000000,
-	// 	Seqno:     26822299,
-	// })
-
-	// if err != nil {
-	// 	logger.Error(err.Error())
-	// }
-
-	// var respDes tonrpc.BasicResp[tonrpc.BlockTransactions]
-	// json.Unmarshal(resp, &respDes)
-
-	// logger.Info(respDes.Result.Transactions)
-
-	// resp, err := rpc.GetTransactions(tonrpc.GetTransactions{
-	// 	Address: "0:a5b51fcf4cbbb036db5eefbb31f705d79ec118fa27cac0dcd893e1585029eaad",
-	// 	Hash:    "SPAN00z1yQf5rY/ihBgd8pcaAtmntcE+7YKo4vIRSSw=",
-	// 	LT:      29021823000003,
-	// 	Limit:   1,
-	// })
-
-	// if err != nil {
-	// 	logrus.Error(err.Error())
-	// }
-
-	// fmt.Println(prettyPrint(resp))
-	// for {
-	// 	logrus.Debug("test debug msg")
-	// 	time.Sleep(1 * time.Second)
-	// }
+	if err := scan.StartScanMasterChain(api); err != nil {
+		logrus.Fatal(err)
+	}
 }
