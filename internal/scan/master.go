@@ -25,8 +25,8 @@ func StartScanMasterChain(api *ton.APIClient) error {
 
 		if err != nil {
 			// TODO: fix infinity loop (mark block as can't be processed)
-			logrus.Infof("sleep for %d milliseconds", app.CFG.SleepInfo.IfCantGetDat)
-			time.Sleep(time.Duration(app.CFG.SleepInfo.IfCantGetDat) * time.Millisecond)
+			logrus.Infof("sleep for %d milliseconds", app.CFG.SleepInfo.IfCantd)
+			time.Sleep(time.Duration(app.CFG.SleepInfo.IfCantd) * time.Millisecond)
 			continue
 		}
 
@@ -38,11 +38,18 @@ func StartScanMasterChain(api *ton.APIClient) error {
 		logrus.Infof("sleep for %d milliseconds", sleepFor)
 		time.Sleep(time.Duration(sleepFor) * time.Millisecond)
 
-		diff := mmath.MaxInteger(int64(app.CFG.SleepInfo.MinDiffSleep), time.Since(lastOk).Milliseconds()-100)
-		timeDiffs = append(timeDiffs, diff)
+		sinceLast := time.Since(lastOk).Milliseconds()
+		timeDiffs = append(
+			timeDiffs,
+			mmath.MaxInteger(
+				app.CFG.SleepInfo.MinDiff,
+				sinceLast-app.CFG.SleepInfo.MaxDiff,
+			),
+		)
+
 		lastOk = time.Now()
 
-		if len(timeDiffs) > app.CFG.SleepInfo.MaxDiffCount {
+		if len(timeDiffs) > app.CFG.SleepInfo.MaxCount {
 			timeDiffs = timeDiffs[1:]
 		}
 	}

@@ -19,8 +19,7 @@ services:
       context: .
     env_file:
       - .env
-    networks:
-      - net_1
+    networks: [ "net_1" ]
 
   db:
     image: postgres:14
@@ -29,15 +28,13 @@ services:
       - .env
     environment: 
       - POSTGRES_USER=${DB_USER}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_PASSWORD=${DB_PASW}
       - POSTGRES_DB=${DB_NAME}
-      - DATABASE_HOST=${DB_HOST}
     volumes:
       - database_postgres:/var/lib/postgresql/data
     ports:
       - '5432:5432'
-    networks:
-      - net_1
+    networks: [ "net_1" ]
 
 volumes:
   database_postgres: 
