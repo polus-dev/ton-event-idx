@@ -1,0 +1,7 @@
+FROM golang:1.18-alpine3.16 as dev
+WORKDIR /app
+
+COPY . .
+RUN go mod download && go mod verify
+
+ENTRYPOINT ["tail", "-f", "/dev/null"]

@@ -23,8 +23,8 @@ package main
 
 import (
 	"ton-event-idx/internal/app"
-	"ton-event-idx/internal/client"
 	"ton-event-idx/internal/scan"
+	"ton-event-idx/pkg/client/liteapi"
 	_ "ton-event-idx/pkg/log"
 
 	"github.com/sirupsen/logrus"
@@ -34,7 +34,7 @@ func main() {
 	logrus.Info("Starting the \"ton-event-idx\"")
 	app.Configure()
 
-	api, err := client.NewLiteApiClient()
+	api, err := liteapi.NewLiteApiClient()
 	if err != nil {
 		logrus.Fatalf("can't create new lite apo client: %s", err)
 	}

@@ -13,12 +13,7 @@ up the service:
 docker-compose up --build -d <SERVICE>
 ```
 
-stop the service: 
+log in: 
 ```
-docker-compose stop <SERVICE>
-```
-
-down all:
-```
-docker-compose down
+docker exec -it event-dev /bin/sh
 ```

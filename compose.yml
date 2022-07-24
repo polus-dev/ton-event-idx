@@ -14,7 +14,7 @@ services:
     volumes:
       - .:/app/
     build:
-      dockerfile: ./infra/Dockerfile
+      dockerfile: Dockerfile.dev
       target: dev
       context: .
     env_file:

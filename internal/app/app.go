@@ -7,7 +7,8 @@ import (
 	"strconv"
 	"strings"
 	"time"
-	"ton-event-idx/pkg/psql"
+	"ton-event-idx/internal/storage/mcblock"
+	"ton-event-idx/pkg/client/psql"
 	"unsafe"
 
 	"github.com/jackc/pgx/v4/pgxpool"
@@ -15,14 +16,10 @@ import (
 	"golang.org/x/exp/constraints"
 )
 
-type basicBlockInfo struct {
-	WC    int32
-	Shard uint64
-	SeqNo uint32
-}
+const MASTER_CHAIN_ID = -1
 
 type sleepInfo struct {
-	MinDiff, MaxDiff, IfCantd int64
+	MinDiff, MaxDiff, IfCantd time.Duration
 	MaxCount                  int
 }
 
@@ -30,7 +27,7 @@ type mainConfig struct {
 	LITE_SERVER_HOST string // ip:port
 	LITE_SERVER_PKEY string // base64
 
-	BlockInfo *basicBlockInfo
+	BlockInfo *mcblock.MCBlockDTO
 	SleepInfo *sleepInfo
 	Database  *psql.PsqlConfig
 }
@@ -60,7 +57,11 @@ func parseEnvInt[I constraints.Integer](varInt *I, envName string) {
 	*varInt = parsed
 }
 
-func parseTime[I constraints.Integer](varTime *time.Duration, timeType time.Duration, envName string) {
+func parseTime[I constraints.Integer](
+	varTime *time.Duration,
+	timeType time.Duration,
+	envName string,
+) {
 	var envTime I
 	parseEnvInt(&envTime, envName)
 
@@ -68,12 +69,12 @@ func parseTime[I constraints.Integer](varTime *time.Duration, timeType time.Dura
 }
 
 var CFG mainConfig = mainConfig{
-	BlockInfo: &basicBlockInfo{},
+	BlockInfo: &mcblock.MCBlockDTO{},
 	SleepInfo: &sleepInfo{
-		MinDiff:  10,  // ms
-		MaxDiff:  100, // ms
-		IfCantd:  100, // ms
-		MaxCount: 10,  // slice size
+		MinDiff:  1 * time.Millisecond,
+		MaxDiff:  100 * time.Millisecond,
+		IfCantd:  200 * time.Millisecond,
+		MaxCount: 10,
 	},
 	Database: &psql.PsqlConfig{},
 }
@@ -86,7 +87,6 @@ func Configure() {
 	CFG.LITE_SERVER_HOST = os.Getenv("LITE_SERVER_HOST")
 	CFG.LITE_SERVER_PKEY = os.Getenv("LITE_SERVER_PKEY")
 
-	parseEnvInt(&CFG.BlockInfo.WC, "BLOCK_WC")
 	parseEnvInt(&CFG.BlockInfo.SeqNo, "BLOCK_SEQNO")
 	parseEnvInt(&CFG.BlockInfo.Shard, "BLOCK_SHARD")
 
